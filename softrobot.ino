@@ -59,10 +59,9 @@ void setup() {
   stopRobot();
   
   Serial.println("==========================================");
-  Serial.println("DA SANG SANG! Hay nhap lenh tren Serial Monitor:");
-  Serial.println("  - Nhan 'c': Cuon len (dung khi ket co khi)");
-  Serial.println("  - Nhan 'u': Duoi het co");
-  Serial.println("  - Nhan 's': Dung khan cap");
+  Serial.println(" 'c': curl");
+  Serial.println(" 'u': uncurl");
+  Serial.println(" 's': stop");
   Serial.println("==========================================");
 }
 
@@ -72,15 +71,15 @@ void loop() {
     char cmd = Serial.read();
     
     if (cmd == 'c' || cmd == 'C') {
-      Serial.println("--> Dang cuon tay don...");
+      Serial.println("curl finish");
       runCurlingUntilBlocked();
     } 
     else if (cmd == 'u' || cmd == 'U') {
-      Serial.println("--> Dang duoi tay don het co...");
+      Serial.println("uncurl finish");
       runUncurlingToLimit();
     }
     else if (cmd == 's' || cmd == 'S') {
-      Serial.println("--> Dung khan cap!");
+      Serial.println("stop");
       stopRobot();
     }
   }
@@ -102,7 +101,7 @@ void runCurlingUntilBlocked() {
     if (abs(currentCount - lastCount) < STALL_THRESHOLD) {
       stableTimes++;
       if (stableTimes > 10) { // Nếu đứng yên trong khoảng 100ms thì dừng
-        Serial.println("--> Da cuon toi da (Cham gioi han co khi). Dung lai!");
+        Serial.println("curl finish");
         break;
       }
     } else {
@@ -134,7 +133,7 @@ void runUncurlingToLimit() {
 
     // Nếu đã dịch chuyển đủ số xung giới hạn cho phép duỗi thẳng
     if (currentDisplacement >= MAX_UNCURL_PULTS) {
-      Serial.println("--> Da duoi het co hanh trinh. Dung lai!");
+      Serial.println("uncurl finish");
       break;
     }
 
